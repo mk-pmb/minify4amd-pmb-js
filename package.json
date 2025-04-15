@@ -1,5 +1,5 @@
 { "name": "minify4amd-pmb",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Read a JavaScript file, remove the UMD export wrapper I use, then minify what remains.",
   "keywords": [],
 
@@ -21,8 +21,8 @@
   "directories": { "test": "test" },
 
   "dependencies": {
-    "txtrafo": "^0.0.2",
-    "uglify-js": "^2.7.5"
+    "txtrafo": "^0.0.3",
+    "uglify-js": "^3.19.3"
   },
   "devDependencies": {
   },

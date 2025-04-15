@@ -20,8 +20,25 @@
 
   EX.minifyCode = function (code) {
     code = EX.cleanupCode(code);
-    code = '\uFEFF' + minify(code, { fromString: true }).code + '\n';
-    return code;
+    var mini;
+    try {
+      mini = minify(code, { fromString: true });
+    } catch (caught) {
+      mini = { error: caught };
+    }
+    if (String(mini.error || '').endsWith(' is not a supported option')) {
+      // uglify-js@3
+      mini = minify(code);
+    } else {
+      console.warn('W: Using uglify-js@2 legacy mode! Please upgrade it!');
+    }
+    if (mini.error) { throw mini.error; }
+    mini = '\uFEFF' + mini.code + '\n';
+    if (!mini.includes('function')) {
+      mini = 'Minified code seems to not contain any function';
+      throw new Error(mini);
+    }
+    return mini;
   };
 
 
